@@ -1,11 +1,39 @@
-import React from "react";
+import { FILTERS } from "@/constants/filters";
+import { PROPERTYLISTINGSAMPLE } from "@/constants/index";
+import Pill from "@/components/common/Pill";
+import PropertyCard from "@/components/common/PropertyCard";
+import { useState } from "react";
 
 export default function Home() {
+  const [activeFilter, setActiveFilter] = useState<string>("");
+
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100">
-      <h1 className="text-3xl font-bold text-gray-800">
-        Welcome to ALX Listing App
-      </h1>
+    <div className="px-6 py-10">
+
+      <section className="mb-10">
+        <h2 className="text-2xl font-semibold mb-4">Filter Properties</h2>
+
+        <div className="flex flex-wrap gap-3">
+          {FILTERS.map((filter) => (
+            <Pill
+              key={filter}
+              label={filter}
+              active={activeFilter === filter}
+              onClick={() => setActiveFilter(filter)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-2xl font-semibold mb-4">Popular Listings</h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {PROPERTYLISTINGSAMPLE.map((property, index) => (
+            <PropertyCard key={index} {...property} />
+          ))}
+        </div>
+      </section>
     </div>
   );
 }
